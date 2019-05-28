@@ -10,6 +10,8 @@
             @endif </h1>
         <p>Bergabung dengan Siarin pada {{ \Carbon\Carbon::parse(Auth::user()->id)->format('d F Y') }}</p>
     </div>
+
+    {{-- Channel Conditionals --}}
     @if (App\Channel::select('id')->where('userId', Auth::user()->id)->first() == null)
     <div class="alert alert-warning" role="alert">
         <h4 class="alert-heading">Kamu belum punya kanal...</h4>
@@ -20,7 +22,11 @@
         <p class="mb-0">Mari <a href="{{ route('channel.create') }}">Mulai.</a></p>
     </div>
     @else
-
+    <h1>Kanal</h1>
+    <img class="mb-5 rounded" src="{{url('uploads/'.$channel->imagePath)}}" alt="" style="width: 10%">
+    <p>{{$channel->name}}</p>
+    <p>{{$channel->subscriber}} berlangganan</p>
     @endif
+
 </div>
 @endsection

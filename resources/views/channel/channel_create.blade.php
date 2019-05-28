@@ -26,7 +26,7 @@
 
     @endif
 
-    <form action="{{ route('channel.store') }}" method="post">
+    <form action="{{ route('channel.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="input-group mb-3">
                 <input type="file" name="channel_image">

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Channel;
 
+use Auth;
+
 class AccountController extends Controller
 {
     
@@ -30,7 +32,8 @@ class AccountController extends Controller
     {
         //
         $user = User::find($id);
-        return view('account/account_show');
+        $channel = Channel::where('userId', Auth::user()->id)->first();
+        return view('account/account_show', compact('user', 'channel'));
     }
 
     /**

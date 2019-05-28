@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Channel;
+
 use Auth;
+use Storage;
+use File;
 
 class ChannelController extends Controller
 {
@@ -61,11 +64,9 @@ class ChannelController extends Controller
         $hasImage = $request->hasFile('channel_image');
 
         $channel = new Channel;
-        $channel->name = $name;
-        $channel->userId = Auth::user()->id;
 
         if($hasImage){
-            $image = $request->file('image');
+            $image = $request->file('channel_image');
             $filename = $image->getFilename();
             $extension = $image->getClientOriginalExtension();
             Storage::disk('public')->put($filename.'.'.$extension, File::get($image));
@@ -73,6 +74,9 @@ class ChannelController extends Controller
             $channel->imagePath = $image->getFilename().'.'.$extension;
         }
 
+        $channel->name = $name;
+        $channel->userId = Auth::user()->id;
+        $channel->subscriber = 0;
         $channel->isVerified = 0;
         $channel->save();
         return redirect('/channel');
