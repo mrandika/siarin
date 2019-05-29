@@ -32,5 +32,9 @@ Route::match(array('PUT', 'PATCH'), "/unsubscribe/{id}", array(
     'as' => 'channel.unsubscribe'
 ));
 
+// Video specific routing
+Route::get('/channel/{id}/upload', 'VideoController@index')->name('upload.index');
+Route::post('/video/upload', 'VideoController@upload')->name('upload.store');
+
 Auth::routes();
 

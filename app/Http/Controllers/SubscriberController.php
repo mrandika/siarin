@@ -29,17 +29,21 @@ class SubscriberController extends Controller
      */
     public function subscribe(Request $request, $id)
     {
-        // Add the data first
-        $subscribeData = new UsersSubscribeData;
-        $subscribeData->userId = Auth::user()->id;
-        $subscribeData->channelId = $id;
-        $subscribeData->save();
+        if (Auth::user()->id == Channel::select('userId')->where('id', $id)->first()->userId) {
+            return redirect('/channel',)->withErrors('Failed to subscribing.');
+        } else {
+            // Add the data first
+            $subscribeData = new UsersSubscribeData;
+            $subscribeData->userId = Auth::user()->id;
+            $subscribeData->channelId = $id;
+            $subscribeData->save();
 
-        // Update the subscriber count
-        $channel = Channel::find($id);
-        $channel->subscriber = $channel->subscriber + 1;
-        $channel->save();
-        return redirect('/channel');
+            // Update the subscriber count
+            $channel = Channel::find($id);
+            $channel->subscriber = $channel->subscriber + 1;
+            $channel->save();
+            return redirect('/channel');
+        }
     }
 
     /**
