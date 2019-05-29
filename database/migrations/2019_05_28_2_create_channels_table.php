@@ -18,9 +18,10 @@ class CreateChannelsTable extends Migration
             $table->string('backdropPath')->unique()->nullable();
             $table->string('imagePath')->nullable();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('userId')->unique();
-            $table->bigInteger('subscriber');
-            $table->boolean('isVerified');
+            $table->bigInteger('subscriber')->default(0);
+            $table->boolean('isVerified')->default(0);
             $table->foreign('userId')->on('users')->references('id');
             $table->timestamps();
         });

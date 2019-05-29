@@ -58,26 +58,27 @@ class ChannelController extends Controller
         $validatedData = $request->validate([
             'channel_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'channel_name' => 'required|max:255',
+            'channel_description' => 'max:1024',
         ]);
 
         $name = $request->post('channel_name');
+        $description = $request->post('channel_description');
         $hasImage = $request->hasFile('channel_image');
 
         $channel = new Channel;
 
         if($hasImage){
             $image = $request->file('channel_image');
-            $filename = $image->getFilename();
+            $filename = Auth::user()->id."-".str_random(10)."_channel-image";
             $extension = $image->getClientOriginalExtension();
             Storage::disk('public')->put($filename.'.'.$extension, File::get($image));
 
-            $channel->imagePath = $image->getFilename().'.'.$extension;
+            $channel->imagePath = $filename.'.'.$extension;
         }
 
         $channel->name = $name;
+        $channel->description = $description;
         $channel->userId = Auth::user()->id;
-        $channel->subscriber = 0;
-        $channel->isVerified = 0;
         $channel->save();
         return redirect('/channel');
     }

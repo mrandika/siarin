@@ -29,7 +29,7 @@
     <form action="{{ route('channel.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="input-group mb-3">
-                <input type="file" name="channel_image">
+            <input type="file" name="channel_image">
         </div>
 
         <div class="input-group mb-3">
@@ -38,6 +38,15 @@
             </div>
             <input type="text" name="channel_name" class="form-control" aria-describedby="nama-kanal">
         </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Description</span>
+            </div>
+            <textarea class="form-control" name="channel_description" aria-label="Description"></textarea>
+        </div>
+
+        <br>
 
         <button type="submit" class="btn btn-success">Buat!</button>
     </form>

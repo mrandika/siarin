@@ -14,14 +14,14 @@ class CreateUploadsDataTable extends Migration
     public function up()
     {
         Schema::create('upload_data', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id');
             $table->unsignedBigInteger('uploadId')->unique();
             $table->foreign('uploadId')->on('uploads')->references('id');
             $table->unsignedBigInteger('categoriesId')->unique();
             $table->foreign('categoriesId')->on('categories')->references('id');
-            $table->bigInteger('views');
-            $table->bigInteger('likes');
-            $table->bigInteger('dislikes');
+            $table->bigInteger('views')->default(0);
+            $table->bigInteger('likes')->default(0);
+            $table->bigInteger('dislikes')->default(0);
             $table->timestamps();
         });
     }

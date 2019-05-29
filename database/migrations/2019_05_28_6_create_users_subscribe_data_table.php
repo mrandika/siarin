@@ -15,6 +15,8 @@ class CreateUsersSubscribeDataTable extends Migration
     {
         Schema::create('users_subscribe_data', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->on('users')->references('id');
             $table->unsignedBigInteger('channelId');
             $table->foreign('channelId')->on('channel')->references('id');
             $table->timestamps();

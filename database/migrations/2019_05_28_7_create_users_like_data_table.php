@@ -15,6 +15,8 @@ class CreateUsersLikeDataTable extends Migration
     {
         Schema::create('users_like_data', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->on('users')->references('id');
             $table->unsignedBigInteger('videoId');
             $table->foreign('videoId')->on('uploads')->references('id');
             $table->timestamps();

@@ -22,5 +22,15 @@ Route::match(array('PUT', 'PATCH'), "/account/{account}", array(
     'as' => 'account.update'
 ));
 
+// Channel specific routing
+Route::match(array('PUT', 'PATCH'), "/subscribe/{id}", array(
+    'uses' => 'SubscriberController@subscribe',
+    'as' => 'channel.subscribe'
+));
+Route::match(array('PUT', 'PATCH'), "/unsubscribe/{id}", array(
+    'uses' => 'SubscriberController@unsubscribe',
+    'as' => 'channel.unsubscribe'
+));
+
 Auth::routes();
 
